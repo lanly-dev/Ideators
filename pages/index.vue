@@ -1,7 +1,7 @@
 <template lang="pug">
   span
     #l
-    gmap-map#map(:center='mapCenter' :zoom=7 map-type-id='terrain')
+    gmap-map#map(:center='mapCenter' :zoom=9 map-type-id='terrain')
       gmap-marker(:key='index' v-for='(m, index) in responders' :position='m.position' :clickable='true' @click='markerClicked(m)')
       gmap-info-window(:options='{maxWidth: 300}' :position='infoWindow.position' :opened='infoWindow.open' @closeclick='infoWindow.open=false')
         div
@@ -14,7 +14,7 @@
 export default {
   data() {
     return {
-      mapCenter: { lat: 10, lng: 10 },
+      mapCenter: { lat: 47.63, lng: -122.33 },
       infoWindow: {
         id: null,
         hr: null,
