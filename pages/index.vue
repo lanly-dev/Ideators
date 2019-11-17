@@ -18,10 +18,7 @@ export default {
         name: null,
         position: {}
       },
-      responders: [
-        { name: 'John', position: { lat: 10, lng: 10 } },
-        { name: 'Joe', position: { lat: 10, lng: 11 } }
-      ]
+      responders: []
     }
   },
   mounted() {
@@ -39,11 +36,24 @@ export default {
     })
     s.addEventListener('open', (m) => {
       log('websocket connection open')
-      s.send('hello')
+      s.send(JSON.stringify({ id: 'dashboard' }))
     })
-    s.addEventListener('message', (m) => {
-      log(m.data)
-    })
+    const _this = this
+    const handler = function(m) {
+      console.log(_this.$data.responders)
+      m = JSON.parse(m.data)
+      log(m)
+      let found = false
+      if (_this.$data.responders.length === 0) _this.$data.responders.push(m)
+      for (let i = 0; i < _this.$data.responders.length; i++) {
+        if (_this.$data.responders[i].id === m.id) {
+          _this.$data.responders[i] = m
+          found = true
+        }
+      }
+      if (!found) _this.$data.responders.push(m)
+    }
+    s.onmessage = handler
   },
   methods: {
     markerClicked(who) {

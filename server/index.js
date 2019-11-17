@@ -5,7 +5,8 @@ const app = express()
 const ws = require('express-ws')(app)
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
-const CLIENTS = []
+const RCLIENTS = []
+const CCLIENTS = []
 
 async function start() {
   const nuxt = new Nuxt(config)
@@ -20,12 +21,24 @@ async function start() {
   }
 
   app.ws('/', (s, req) => {
-    console.log('websocket connection')
-    CLIENTS.push[s]
-
     s.on('message', (msg) => {
-      console.log(msg)
-      console.log(ws.getWss())
+      msg = JSON.parse(msg)
+      if (!s.id) {
+        s.id = msg.id
+        if (s.id === 'dashboard') {
+          CCLIENTS.push(s)
+        } else RCLIENTS.push(s)
+      }
+      if (s.id !== 'dashboard') {
+        for (let i = 0; i < CCLIENTS.length; i++) {
+          if (CCLIENTS[i].readyState === 1)
+            CCLIENTS[i].send(JSON.stringify(msg))
+          else if (s.readyState === 3) {
+            CCLIENTS.splice(index, 1)
+            i--
+          }
+        }
+      }
     })
 
     // Sending back
