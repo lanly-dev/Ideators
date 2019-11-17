@@ -26,11 +26,13 @@ export default {
   watch: {
     responders: {
       handler(val, oldVal) {
-        if (val || !oldVal) return true
-        if (val.hr !== oldVal.hr) return true
-        if (val.position.lat !== oldVal.position.lat) return false
-        if (val.position.lng !== oldVal.position.lng) return true
+        console.log(val, oldVal)
         return false
+        // if (val || !oldVal) return true
+        // if (val.hr !== oldVal.hr) return true
+        // if (val.position.lat !== oldVal.position.lat) return false
+        // if (val.position.lng !== oldVal.position.lng) return true
+        // return false
       },
       deep: true
     }
