@@ -23,6 +23,17 @@ export default {
       responders: []
     }
   },
+  watch: {
+    responders: {
+      handler(val, oldVal) {
+        if(val.hr !== oldVal.hr) return true
+        if(val.position.lat !== oldVal.position.lng) return true
+        if(val.position.lng !== oldVal.position.lng) return true
+        return false
+      },
+      deep: true
+    }
+  },
   mounted() {
     const l = document.getElementById('l')
     const log = (m) => {
