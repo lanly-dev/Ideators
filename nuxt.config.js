@@ -1,3 +1,4 @@
+require('dotenv').config()
 module.exports = {
   mode: 'universal',
   /*
@@ -27,7 +28,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [{ src: '~/plugins/gmaps', ssr: true }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -49,6 +50,10 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {},
+    transpile: [/^vue2-google-maps($|\/)/]
+  },
+  env: {
+    GKey: process.env.GOOGLE_MAP_API_KEY
   }
 }

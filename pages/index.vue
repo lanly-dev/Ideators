@@ -1,12 +1,23 @@
 <template lang="pug">
-  #l
+  span
+    #l
+    gmap-map#map(:center='mapCenter' :zoom=7 map-type-id='terrain')
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      mapCenter: { lat: 10, lng: 10 },
+      infoWindow: {
+        name: null,
+        position: {}
+      }
+    }
+  },
   mounted() {
     const l = document.getElementById('l')
-    const log = function(m) {
+    const log = (m) => {
       const i = document.createElement('li')
       i.textContent = new Date().toISOString() + ' ' + m
       l.appendChild(i)
@@ -14,13 +25,13 @@ export default {
     log('opening websocket connection')
     const s = new WebSocket('ws://localhost:3000')
     // const s = new WebSocket('ws://172.16.94.196:3001')
-    s.addEventListener('error', function(m) {
+    s.addEventListener('error', (m) => {
       log('error')
     })
-    s.addEventListener('open', function(m) {
+    s.addEventListener('open', (m) => {
       log('websocket connection open')
     })
-    s.addEventListener('message', function(m) {
+    s.addEventListener('message', (m) => {
       log(m.data)
     })
   }
@@ -57,5 +68,10 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+
+#map {
+  width: 500px;
+  height: 300px;
 }
 </style>
