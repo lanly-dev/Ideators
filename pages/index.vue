@@ -31,7 +31,11 @@ export default {
       l.appendChild(i)
     }
     log('opening websocket connection')
-    const s = new WebSocket('ws://localhost:3000')
+    let wssAdress
+    if (window.location.hostname === 'localhost')
+      wssAdress = `ws://${window.location.hostname}:3000`
+    else wssAdress = `wss://${window.location.hostname}`
+    const s = new WebSocket(wssAdress)
     // const s = new WebSocket('ws://172.16.94.196:3001')
     s.addEventListener('error', (m) => {
       log('error')
