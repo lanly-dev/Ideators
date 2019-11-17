@@ -1,35 +1,28 @@
-<template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        Ideator
-      </h1>
-      <h2 class="subtitle">
-        First responder support
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  #l
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  mounted() {
+    const l = document.getElementById('l')
+    const log = function(m) {
+      const i = document.createElement('li')
+      i.textContent = new Date().toISOString() + ' ' + m
+      l.appendChild(i)
+    }
+    log('opening websocket connection')
+    const s = new WebSocket('ws://localhost:3000')
+    // const s = new WebSocket('ws://172.16.94.196:3001')
+    s.addEventListener('error', function(m) {
+      log('error')
+    })
+    s.addEventListener('open', function(m) {
+      log('websocket connection open')
+    })
+    s.addEventListener('message', function(m) {
+      log(m.data)
+    })
   }
 }
 </script>

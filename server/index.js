@@ -2,6 +2,7 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
+const ws = require('express-ws')(app)
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
@@ -21,9 +22,15 @@ async function start() {
     await nuxt.ready()
   }
 
+  app.ws('/', (s, req) => {
+    console.error('websocket connection')
+    for (let t = 0; t < 3; t++) {
+      setTimeout(() => s.send('message from server', () => {}), 1000 * t)
+    }
+  })
+
   // Give nuxt middleware to express
   app.use(nuxt.render)
-
   // Listen the server
   app.listen(port, host)
   consola.ready({
