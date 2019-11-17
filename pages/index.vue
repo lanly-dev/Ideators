@@ -26,13 +26,11 @@ export default {
   watch: {
     responders: {
       handler(val, oldVal) {
-        console.log(val, oldVal)
-        return false
-        // if (val || !oldVal) return true
-        // if (val.hr !== oldVal.hr) return true
-        // if (val.position.lat !== oldVal.position.lat) return false
-        // if (val.position.lng !== oldVal.position.lng) return true
-        // return false
+        for (let i = 0; i < this.responders.length; i++) {
+          if (this.responders[i].id === val.id) {
+            this.responders[i] = val
+          }
+        }
       },
       deep: true
     }
@@ -70,7 +68,9 @@ export default {
       else {
         for (let i = 0; i < _this.$data.responders.length; i++) {
           if (_this.$data.responders[i].id === m.id) {
-            _this.$data.responders[i] = m
+            _this.$data.responders[i].id = m.id
+            _this.$data.responders[i].hr = m.hr
+            _this.$data.responders[i].position = m.position
             found = true
           }
         }
