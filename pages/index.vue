@@ -53,10 +53,12 @@ export default {
       m = JSON.parse(m.data)
       let found = false
       if (_this.$data.responders.length === 0) _this.$data.responders.push(m)
-      for (let i = 0; i < _this.$data.responders.length; i++) {
-        if (_this.$data.responders[i].id === m.id) {
-          _this.$data.responders[i] = m
-          found = true
+      else {
+        for (let i = 0; i < _this.$data.responders.length; i++) {
+          if (_this.$data.responders[i].id === m.id) {
+            _this.$data.responders[i] = m
+            found = true
+          }
         }
       }
       if (!found) _this.$data.responders.push(m)
