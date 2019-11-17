@@ -49,7 +49,7 @@ export default {
       console.log('$$$$$$$$$$$$$$$$$$$$')
       console.log(m)
       console.log(_this.$data.responders)
-      log(m)
+      log(m.data)
       m = JSON.parse(m.data)
       let found = false
       if (_this.$data.responders.length === 0) _this.$data.responders.push(m)
@@ -60,8 +60,8 @@ export default {
             found = true
           }
         }
+        if (!found) _this.$data.responders.push(m)
       }
-      if (!found) _this.$data.responders.push(m)
     }
     s.onmessage = handler
   },
