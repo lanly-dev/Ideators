@@ -6,7 +6,8 @@
       gmap-info-window(:options='{maxWidth: 300}' :position='infoWindow.position' :opened='infoWindow.open' @closeclick='infoWindow.open=false')
         div
           .row
-            .col-12 helloworld
+            .col-9 {{infoWindow.id}}
+            .col-3 {{infoWindow.hr}}
 </template>
 
 <script>
@@ -15,7 +16,8 @@ export default {
     return {
       mapCenter: { lat: 10, lng: 10 },
       infoWindow: {
-        name: null,
+        id: null,
+        hr: null,
         position: {}
       },
       responders: []
@@ -40,6 +42,8 @@ export default {
     })
     const _this = this
     const handler = function(m) {
+      console.log('$$$$$$$$$$$$$$$$$$$$')
+      console.log(m)
       console.log(_this.$data.responders)
       m = JSON.parse(m.data)
       log(m)
@@ -59,6 +63,8 @@ export default {
     markerClicked(who) {
       Object.assign(this.$data, this.$options.data.apply(this))
       this.infoWindow.position = who.position
+      this.infoWindow.id = who.id
+      this.infoWindow.hr = who.hr
       this.infoWindow.open = true
     }
   }
