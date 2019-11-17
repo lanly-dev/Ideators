@@ -21,8 +21,9 @@ async function start() {
   }
 
   app.ws('/', (s, req) => {
-    console.log('$$$$$$$$$$$$$$$$$$$4')
+    console.log('Connection Coming')
     s.on('message', (msg) => {
+      console.log(msg)
       msg = JSON.parse(msg)
       if (!s.id) {
         s.id = msg.id

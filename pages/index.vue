@@ -49,8 +49,8 @@ export default {
       console.log('$$$$$$$$$$$$$$$$$$$$')
       console.log(m)
       console.log(_this.$data.responders)
-      m = JSON.parse(m.data)
       log(m)
+      m = JSON.parse(m.data)
       let found = false
       if (_this.$data.responders.length === 0) _this.$data.responders.push(m)
       for (let i = 0; i < _this.$data.responders.length; i++) {
