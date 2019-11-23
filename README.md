@@ -1,9 +1,14 @@
-# Ideator
+# Ideators
 
-> First responder support
+> First responder support  
+> The Enterprise AppDev Launchpad Hackathon
+
+This webapp listens any websocket and display the information that recieved from Samsung watches on Google map.
+
+## https://ideators.glitch.me/
+## https://github.com/lanly-dev/Tizen-watch
 
 ## Build Setup
-
 ``` bash
 # install dependencies
 $ npm run install
@@ -14,9 +19,4 @@ $ npm run dev
 # build for production and launch server
 $ npm run build
 $ npm run start
-
-# generate static project
-$ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
